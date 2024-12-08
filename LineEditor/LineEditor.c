@@ -1,6 +1,6 @@
 #include"LineEditor.h"
 
-//ÏÔÊ¾°ïÖú
+//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 void displayHelp()
 {
 	printf("Available commands:\n");
@@ -14,7 +14,7 @@ void displayHelp()
 	printf("  ?<Enter> - Show help.\n");
 }
 
-//»ñÈ¡ÊäÈëÊä³öÎÄ¼şÃû
+//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 void getInOutFile(char* input, char* output,int size)
 {
 	while(1)
@@ -38,12 +38,12 @@ void getInOutFile(char* input, char* output,int size)
 			perror("Can't use the same filename\n");
 			continue;
 		}
-		//ÊäÈëÓĞĞ§²ÅÌø³öÑ­»·
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
 		break;
 	}
 }
 
-//³õÊ¼»¯ĞĞ½ÚµãÁ´±í
+//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ğ½Úµï¿½ï¿½ï¿½ï¿½ï¿½
 LineNode* createLineNode()
 {
 	LineNode* newline = (LineNode*)malloc(sizeof(LineNode));
@@ -62,7 +62,7 @@ LineNode* createLineNode()
 	return newline;
 }
 
-//¶ÁÈ¡ÎÄ¼şµ½»îÇø
+//ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 LineNode* readFileToLine(const char* infile, LineNode* head, int* position, int* lineNum, long* filePos, int* isEndOfFile)
 {
 	if (infile == NULL || position == NULL || lineNum == NULL || isEndOfFile == NULL)
@@ -76,12 +76,12 @@ LineNode* readFileToLine(const char* infile, LineNode* head, int* position, int*
 		perror("Failed to open file\n");
 		return NULL;
 	}
-	// »Ö¸´ÎÄ¼şÖ¸ÕëÎ»ÖÃ
+	// ï¿½Ö¸ï¿½ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½Î»ï¿½ï¿½
 	if (filePos != NULL && *filePos > 0)
 	{
 		fseek(file, *filePos, SEEK_SET);
 	}
-	//ÕÒµ½Á´±í×îºóÒ»¸ö¿ÕÖ¸Õë£¬Íùºó×·¼Ó
+	//ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½×·ï¿½ï¿½
 	LineNode* current = head;
 	if (current != NULL)
 	{
@@ -109,12 +109,12 @@ LineNode* readFileToLine(const char* infile, LineNode* head, int* position, int*
 		}
 		(*position)++;
 	}
-	//¼ì²éÊÇ·ñµ½´ïÎÄ¼şÄ©Î²
+	//ï¿½ï¿½ï¿½ï¿½Ç·ñµ½´ï¿½ï¿½Ä¼ï¿½Ä©Î²
 	if (feof(file))
 	{
 		*isEndOfFile = 1;
 	}
-	//¼ÇÂ¼ÎÄ¼şÖ¸ÕëÎ»ÖÃ
+	//ï¿½ï¿½Â¼ï¿½Ä¼ï¿½Ö¸ï¿½ï¿½Î»ï¿½ï¿½
 	if (filePos != NULL)
 	{
 		*filePos = ftell(file);
@@ -124,7 +124,7 @@ LineNode* readFileToLine(const char* infile, LineNode* head, int* position, int*
 	return head;
 }
 
-//Ã¿´Î²åÈëÊä³öÒ»ĞĞ
+//Ã¿ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 void outPutLine(const char* outfile, char* content)
 {
 	FILE* file = fopen(outfile, "a+");
@@ -132,7 +132,7 @@ void outPutLine(const char* outfile, char* content)
 	fclose(file);
 }
 
-//¼ì²éĞĞºÅÊÇ·ñÔÚ»îÇø
+//ï¿½ï¿½ï¿½ï¿½Ğºï¿½ï¿½Ç·ï¿½ï¿½Ú»ï¿½ï¿½ï¿½
 int checkLineOut(LineNode* head, int* lineNum, int line)
 {
 	if (line<head->LineNumber - 1 || line>*lineNum)
@@ -143,7 +143,7 @@ int checkLineOut(LineNode* head, int* lineNum, int line)
 	return 0;
 }
 
-//¼ì²édeleteµÄĞĞÊıÊÇ·ñÕıÈ·
+//ï¿½ï¿½ï¿½deleteï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·
 int checkDeleteLineOut(LineNode* head, int* lineNum, int line)
 {
 	if (line<head->LineNumber || line>*lineNum)
@@ -153,11 +153,11 @@ int checkDeleteLineOut(LineNode* head, int* lineNum, int line)
 	return 0;
 }
 
-//²åÈëĞĞ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 LineNode* insertLine(LineNode* head, int* position, const char* outfile, int line, int* lineNum, char content[])
 {
-	//ÕâÖÖÇé¿ö²»Ó¦¸ÃÖ±½ÓÊä³ö£¬¶øÊÇÌí¼Óµ½Í·Ö¸ÕëÖ®Ç°£¬²¢ÇÒÊ¹ÓÃpÏÔÊ¾Ê±±£Ö¤Êä³ö
-	//²åÈë»îÇøÖ®Ç°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½Í·Ö¸ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½pï¿½ï¿½Ê¾Ê±ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°
 	/*if (head->LineNumber == line + 1)
 	{
 		outPutLine(outfile, content);
@@ -168,10 +168,10 @@ LineNode* insertLine(LineNode* head, int* position, const char* outfile, int lin
 			current = current->next;
 		}
 	}*/
-	//²åÈëºó»îÇøÒç³ö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (*position + 1 > ACTIVEMAXLEN)
 	{
-		//²åÈëµ½»îÇøÇ°Ò»ĞĞ£¬Ö±½ÓÊä³ö
+		//ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½Ç°Ò»ï¿½Ğ£ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (head->LineNumber == line + 1)
 		{
 			outPutLine(outfile, content);
@@ -207,7 +207,7 @@ LineNode* insertLine(LineNode* head, int* position, const char* outfile, int lin
 			}
 		}
 	}
-	//²åÈëºó»îÇøÎ´Âú
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½
 	else
 	{
 		if (head->LineNumber == line + 1)
@@ -249,7 +249,7 @@ LineNode* insertLine(LineNode* head, int* position, const char* outfile, int lin
 LineNode* deleteLines(LineNode* head, int line1, int line2, int* position, int* lineNum)
 {
 	clearConsole();
-	//²»ÄÜÑ­»·É¾³ı£¬ÒòÎª»áÃ¿´Î¸Ä±äĞĞºÅ
+	//ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ã¿ï¿½Î¸Ä±ï¿½ï¿½Ğºï¿½
 	/*for (int i = line1; i <= line2; i++)
 	{
 		head = deleteLine(head, i);
@@ -264,14 +264,14 @@ LineNode* deleteLines(LineNode* head, int line1, int line2, int* position, int* 
 		printf("Check your input\n");
 		return head;
 	}
-	//É¾³ıÍ·½áµã
+	//É¾ï¿½ï¿½Í·ï¿½ï¿½ï¿½
 	while (head != NULL && head->LineNumber >= line1 && head->LineNumber <= line2)
 	{
 		LineNode* next = head->next;
 		freeLineNode(head);
 		head = next;
 	}
-	//ÆäËûÇé¿ö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	LineNode* current = head;
 	while (current != NULL && current->next != NULL)
 	{
@@ -284,7 +284,7 @@ LineNode* deleteLines(LineNode* head, int line1, int line2, int* position, int* 
 			current = current->next;
 		}
 	}
-	//¸üĞÂÊ£Óà½ÚµãµÄĞĞºÅ
+	//ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½Úµï¿½ï¿½ï¿½Ğºï¿½
 	current = head;
 	while (current != NULL)
 	{
@@ -307,7 +307,7 @@ LineNode* deleteLine(LineNode* head, int line1, int* position, int* lineNum)
 	{
 		return NULL;
 	}
-	//É¾³ıÍ·½áµã
+	//É¾ï¿½ï¿½Í·ï¿½ï¿½ï¿½
 	if (head->LineNumber == line1)
 	{
 		LineNode* next = head->next;
@@ -320,7 +320,7 @@ LineNode* deleteLine(LineNode* head, int line1, int* position, int* lineNum)
 		}
 		return next;
 	}
-	//ÆäËûÇé¿ö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	LineNode* current = head;
 	while (current->next != NULL && current->next->LineNumber != line1)
 	{
@@ -341,7 +341,7 @@ LineNode* deleteLine(LineNode* head, int line1, int* position, int* lineNum)
 	return head;
 }
 
-//»îÇøÇĞ»»
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ğ»ï¿½
 LineNode* switchActiveZone(const char* outfile, LineNode* head, int* position,int isEndOfFile)
 {
 	if (outfile == NULL)
@@ -360,8 +360,8 @@ LineNode* switchActiveZone(const char* outfile, LineNode* head, int* position,in
 	LineNode* next = NULL;
 	int count = 0;
 
-	//»îÇø±£ÁôÎåĞĞÆäËûÊä³ö
-	while (current != NULL && (isEndOfFile || (current->LineNumber - head->LineNumber) < (*position - 5)))	//currentµ½»îÇøÍ·²¿µÄĞĞÊı
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	while (current != NULL && (isEndOfFile || (current->LineNumber - head->LineNumber) < (*position - 5)))	//currentï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		fprintf(file, "%s", current->content);
 		next = current->next;
@@ -386,10 +386,10 @@ LineNode* switchActiveZone(const char* outfile, LineNode* head, int* position,in
 		printf("Active zone has successfully written into the output file");
 	}
 	fclose(file);
-	return current;	//·µ»ØĞÂµÄÁ´±íÍ·½áµã
+	return current;	//ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½
 }
 
-//Á½ĞĞÖĞ¼ä²åÈëÒ»ĞĞ
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¼ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 void addLineNode(LineNode* head, LineNode* nextLine)
 {
 	if (head->next == NULL)
@@ -403,7 +403,7 @@ void addLineNode(LineNode* head, LineNode* nextLine)
 	}
 }
 
-//É¾³ı´«Èë½áµãµÄÏÂÒ»¸ö½áµã
+//É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½
 void deleteLineNode(LineNode* head)
 {
 	if (head == NULL || head->next == NULL)
@@ -415,30 +415,30 @@ void deleteLineNode(LineNode* head)
 	freeLineNode(delete);
 }
 
-/*Ö¸ÕëµÄÖµ£ºÖ¸ÕëËùÔÚµÄÄÚ´æµØÖ·
-Ö¸ÕëµÄµØÖ·£ºÖ¸Õë±äÁ¿µÄµØÖ·£¬Ò»¸ö±äÁ¿Öµ
-Ë«ÖØÖ¸Õë£ºÖ¸ÏòÖ¸ÕëµØÖ·µÄÖ¸Õë£¬Ö¸ÏòµÄÊÇÒ»¸ö±äÁ¿£¬ËüÔÊĞíÄãÍ¨¹ı¼ä½Ó·ÃÎÊÀ´ĞŞ¸ÄÖ¸ÕëµÄÖµ£¬¼´ĞŞ¸ÄÖ¸ÕëËùÖ¸ÏòµÄÄÚ´æµØÖ·¡£
+/*Ö¸ï¿½ï¿½ï¿½Öµï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Ú´ï¿½ï¿½Ö·
+Ö¸ï¿½ï¿½Äµï¿½Ö·ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+Ë«ï¿½ï¿½Ö¸ï¿½ë£ºÖ¸ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ö¸ï¿½ë£¬Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½Ö¸ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ö·ï¿½ï¿½
 
 #include <stdio.h>
 void updatePointer(int** ptr) {
 	static int value = 10;
-	*ptr = &value; // ĞŞ¸ÄÔ­Ê¼Ö¸ÕëµÄÖµ£¬Ê¹ÆäÖ¸ÏòĞÂµÄµØÖ·
+	*ptr = &value; // ï¿½Ş¸ï¿½Ô­Ê¼Ö¸ï¿½ï¿½ï¿½Öµï¿½ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ÂµÄµï¿½Ö·
 }
 int main() {
 	int* p = NULL;
 	printf("Before: %p\n", (void*)p);
-	updatePointer(&p); // ´«µİÖ¸ÕëµÄµØÖ·
+	updatePointer(&p); // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Äµï¿½Ö·
 	printf("After: %p, Value: %d\n", (void*)p, *p);
 	return 0;
 }
 
-ÔÚÕâ¸öÊ¾ÀıÖĞ£º
-	p ÊÇÒ»¸öÖ¸Ïò int µÄÖ¸Õë£¬³õÊ¼ÖµÎª NULL¡£
-	updatePointer º¯Êı½ÓÊÜÒ»¸öË«ÖØÖ¸Õë int** ptr£¬²¢Í¨¹ıËüĞŞ¸ÄÔ­Ê¼Ö¸Õë p µÄÖµ£¬Ê¹ÆäÖ¸ÏòĞÂµÄµØÖ·¡£
-	ÔÚ main º¯ÊıÖĞ£¬µ÷ÓÃ updatePointer º¯Êı²¢´«µİ p µÄµØÖ·£¨¼´ &p£©£¬´Ó¶øĞŞ¸Ä p µÄÖµ¡£
+ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ğ£ï¿½
+	p ï¿½ï¿½Ò»ï¿½ï¿½Ö¸ï¿½ï¿½ int ï¿½ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½Ê¼ÖµÎª NULLï¿½ï¿½
+	updatePointer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ë«ï¿½ï¿½Ö¸ï¿½ï¿½ int** ptrï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½Ô­Ê¼Ö¸ï¿½ï¿½ p ï¿½ï¿½Öµï¿½ï¿½Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ÂµÄµï¿½Ö·ï¿½ï¿½
+	ï¿½ï¿½ main ï¿½ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½ï¿½ updatePointer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ p ï¿½Äµï¿½Ö·ï¿½ï¿½ï¿½ï¿½ &pï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½Ş¸ï¿½ p ï¿½ï¿½Öµï¿½ï¿½
 */
 
-//Ã¿´ÎÏÔÊ¾20ĞĞ
+//Ã¿ï¿½ï¿½ï¿½ï¿½Ê¾20ï¿½ï¿½
 void showLine(LineNode** page)
 {
 	clearConsole();
@@ -462,7 +462,7 @@ void showLine(LineNode** page)
 	}
 }
 
-//Çå³ıÖÕ¶ËÏÔÊ¾
+//ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½Ê¾
 void clearConsole()
 {
 	//for windows
@@ -471,7 +471,7 @@ void clearConsole()
 	//system("clear");
 }
 
-//ÊÍ·ÅÄÚ´æ
+//ï¿½Í·ï¿½ï¿½Ú´ï¿½
 void freeLineNode(LineNode* node)
 {
 	if (node != NULL)

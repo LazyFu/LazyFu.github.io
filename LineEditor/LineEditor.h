@@ -2,23 +2,23 @@
 #define LINEEDITOR_H
 
 #ifdef _WIN32
-#include<Windows.h>	//WindowsÉÏµÄSleepº¯Êý
+#include<Windows.h>	//Windowsï¿½Ïµï¿½Sleepï¿½ï¿½ï¿½ï¿½
 #else
-#include<unistd.h>	//Unix/LinuxÉÏµÄsleepº¯Êý
+#include<unistd.h>	//Unix/Linuxï¿½Ïµï¿½sleepï¿½ï¿½ï¿½ï¿½
 #endif // _WIN32
 
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 
-#define ACTIVEMAXLEN 100	//»îÇø×î¶à100ÐÐ
-#define MAXSIZE 320			//ÎÄ¼þÃ¿ÐÐ²»³¬¹ý320¸ö×Ö·û
+#define ACTIVEMAXLEN 100	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½
+#define MAXSIZE 320			//ï¿½Ä¼ï¿½Ã¿ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½320ï¿½ï¿½ï¿½Ö·ï¿½
 
-//¶¨ÒåÐÐ½Úµã£¬¶¯Ì¬·ÖÅäÃ¿ÐÐÄÚÈÝ
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ð½Úµã£¬ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 typedef struct LineNode
 {
-	int LineNumber;		//ÐÐºÅ±êÊ¶
-	char* content;		//Ã¿ÐÐÄÚÈÝ
+	int LineNumber;		//ï¿½ÐºÅ±ï¿½Ê¶
+	char* content;		//Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	struct LineNode* next;
 }LineNode;
 

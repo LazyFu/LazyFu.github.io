@@ -5,16 +5,16 @@
 
 int main()
 {
-	//»ñÈ¡ÊäÈëÎÄ¼þÊä³öÎÄ¼þÎÄ¼þÃû
+	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 	char inputfile[256], outputfile[256];
 	getInOutFile(inputfile, outputfile, sizeof(inputfile));
 
-	//¶ÁÈ¡ÎÄ¼þµ½ÄÚ´æ
-	int lineNum = 1;	//±ê¼ÇÐÐºÅ
-	int position = 0;	//±ê¼Ç»îÇø×îºóÎ»ÖÃ
-	long filePos = 0;	//±ê¼ÇÎÄ¼þÖ¸Õë£¬¶ÁÈ¡Î»ÖÃ
-	int isEndOfFile = 0;//±ê¼ÇÎÄ¼þÄ©Î²
-	//³õÊ¼»¯ÐÐ½Úµã
+	//ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
+	int lineNum = 1;	//ï¿½ï¿½ï¿½ï¿½Ðºï¿½
+	int position = 0;	//ï¿½ï¿½Ç»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	long filePos = 0;	//ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½È¡Î»ï¿½ï¿½
+	int isEndOfFile = 0;//ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ä©Î²
+	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ð½Úµï¿½
 	LineNode* head = NULL;
 	head = readFileToLine(inputfile, head, &position, &lineNum, &filePos, &isEndOfFile);
 
@@ -23,11 +23,11 @@ int main()
 	displayHelp();
 	while (1)
 	{
-		char command[20] = { 0 };	//Ëæ±ã¼ÙÈçÒ»ÐÐÃüÁî×î¶à20¸ö×Ö·û
+		char command[20] = { 0 };	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½20ï¿½ï¿½ï¿½Ö·ï¿½
 		printf("Enter command: \n");
 		fgets(command, sizeof(command), stdin);
 
-		//ÒªÊäÈëµÄÐÐºÅ
+		//Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½
 		int line = 0, line1 = 0, line2 = 0;
 		switch (command[0])
 		{
@@ -45,7 +45,7 @@ int main()
 		}
 		case 'd':
 		{
-			//Èç¹ûline1ºÏ·¨line2²»ºÏ·¨£¬Ö»É¾³ýline1Ò»ÐÐ
+			//ï¿½ï¿½ï¿½line1ï¿½Ï·ï¿½line2ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½Ö»É¾ï¿½ï¿½line1Ò»ï¿½ï¿½
 			if (sscanf_s(command, "d%d %d", &line1, &line2) == 2 && !checkDeleteLineOut(head, &lineNum, line1) && !checkDeleteLineOut(head, &lineNum, line2))
 			{
 				head = deleteLines(head, line1, line2, &position, &lineNum);
