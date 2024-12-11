@@ -61,3 +61,9 @@ typedef struct LineNode
 读取p，print，切换活区显示行数，输出。
 
 ## 文件IO
+
+模式匹配KMP算法
+
+[KMP算法](https://juejin.cn/post/7445521596456779812)
+
+[next数组](https://www.cnblogs.com/aninock/p/13796006.html)
