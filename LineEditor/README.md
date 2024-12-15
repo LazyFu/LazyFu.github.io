@@ -67,3 +67,9 @@ typedef struct LineNode
 [KMP算法](https://juejin.cn/post/7445521596456779812)
 
 [next数组](https://www.cnblogs.com/aninock/p/13796006.html)
+
+## 释放内存
+
+**不会**。在`LineEditor.c`的`switchActiveZone`函数中尝试释放内存，在354行，如注释所示，结果不能正确释放，导致指针地址混乱。
+
+在Visual Studio中如注释所示释放内存没有出现错误，用gcc编译就不行。MS还是太智能了。

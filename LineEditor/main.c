@@ -1,3 +1,6 @@
+/**
+ *	释放内存作为心理安慰存在
+ */
 #include"LineEditor.h"
 #include<stdio.h>
 #include<stdlib.h>
@@ -5,16 +8,16 @@
 
 int main()
 {
-	//��ȡ�����ļ�����ļ��ļ���
+	//获取输入输出文件名
 	char inputfile[256], outputfile[256];
 	getInOutFile(inputfile, outputfile, sizeof(inputfile));
 
-	//��ȡ�ļ����ڴ�
-	int lineNum = 1;	//����к�
-	int position = 0;	//��ǻ������λ��
-	long filePos = 0;	//����ļ�ָ�룬��ȡλ��
-	int isEndOfFile = 0;//����ļ�ĩβ
-	//��ʼ���нڵ�
+	//定义基本变量
+	int lineNum = 1;	//行号
+	int position = 0;	//活区行数
+	long filePos = 0;	//文件指针位置
+	int isEndOfFile = 0;//是否到达文件末尾
+	//读取文件到链表
 	LineNode* head = NULL;
 	head = readFileToLine(inputfile, head, &position, &lineNum, &filePos, &isEndOfFile);
 
@@ -23,14 +26,15 @@ int main()
 	displayHelp();
 	while (1)
 	{
-		char command[20] = { 0 };	//������һ���������20���ַ�
+		char command[20] = { 0 };	//随便加入命令最多20个字符
 		printf("Enter command: \n");
 		fgets(command, sizeof(command), stdin);
 
-		//Ҫ������к�
+		//处理命令
 		int line = 0, line1 = 0, line2 = 0;
 		switch (command[0])
 		{
+		//行插入
 		case 'i':
 		{
 			char content[MAXSIZE] = { 0 };
@@ -43,9 +47,9 @@ int main()
 			}
 			break;
 		}
+		//行删除
 		case 'd':
 		{
-			//���line1�Ϸ�line2���Ϸ���ֻɾ��line1һ��
 			if (sscanf_s(command, "d%d %d", &line1, &line2) == 2 && !checkDeleteLineOut(head, &lineNum, line1) && !checkDeleteLineOut(head, &lineNum, line2))
 			{
 				head = deleteLines(head, line1, line2, &position, &lineNum);
@@ -61,6 +65,7 @@ int main()
 			page = head;
 			break;
 		}
+		//活区切换
 		case 'n':
 		{
 			head = switchActiveZone(outputfile, head, &position, isEndOfFile);
@@ -68,11 +73,13 @@ int main()
 			page = head;
 			break;
 		}
+		//换页
 		case 'p':
 		{
 			showLine(&page);
 			break;
 		}
+		//显示帮助
 		case '?':
 		{
 			displayHelp();
@@ -86,5 +93,7 @@ int main()
 		}
 		}
 	}
+	freeLinkList(head);
+	freeLinkList(page);
 	return 0;
 }
