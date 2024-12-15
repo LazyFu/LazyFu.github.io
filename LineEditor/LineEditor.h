@@ -2,23 +2,23 @@
 #define LINEEDITOR_H
 
 #ifdef _WIN32
-#include<Windows.h>	//Windows�ϵ�Sleep����
+#include<Windows.h>	//Windows
 #else
-#include<unistd.h>	//Unix/Linux�ϵ�sleep����
+#include<unistd.h>	//Unix/Linux
 #endif // _WIN32
 
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 
-#define ACTIVEMAXLEN 100	//�������100��
-#define MAXSIZE 320			//�ļ�ÿ�в�����320���ַ�
+#define ACTIVEMAXLEN 100	//活区最大长度
+#define MAXSIZE 320			//每行最大长度
 
-//�����нڵ㣬��̬����ÿ������
+//定义行结点结构体
 typedef struct LineNode
 {
-	int LineNumber;		//�кű�ʶ
-	char* content;		//ÿ������
+	int LineNumber;		//行号
+	char* content;		//每行内容
 	struct LineNode* next;
 }LineNode;
 

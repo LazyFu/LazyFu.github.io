@@ -1,6 +1,6 @@
 #include"LineEditor.h"
 
-//��ʾ����
+//显示帮助
 void displayHelp()
 {
 	printf("Available commands:\n");
@@ -14,7 +14,7 @@ void displayHelp()
 	printf("  ?<Enter> - Show help.\n");
 }
 
-//��ȡ��������ļ���
+//获取输入输出文件名
 void getInOutFile(char* input, char* output,int size)
 {
 	while(1)
@@ -38,12 +38,11 @@ void getInOutFile(char* input, char* output,int size)
 			perror("Can't use the same filename\n");
 			continue;
 		}
-		//������Ч������ѭ��
 		break;
 	}
 }
 
-//��ʼ���нڵ�����
+//创建行结点
 LineNode* createLineNode()
 {
 	LineNode* newline = (LineNode*)malloc(sizeof(LineNode));
@@ -62,27 +61,25 @@ LineNode* createLineNode()
 	return newline;
 }
 
-//��ȡ�ļ�������
+//读取文件到链表
 LineNode* readFileToLine(const char* infile, LineNode* head, int* position, int* lineNum, long* filePos, int* isEndOfFile)
 {
 	if (infile == NULL || position == NULL || lineNum == NULL || isEndOfFile == NULL)
 	{
 		perror("Invalid input parameters\n");
-		return NULL;
+		return head;
 	}
 	FILE* file = fopen(infile, "r");
 	if (file == NULL)
 	{
 		perror("Failed to open file\n");
-		return NULL;
+		return head;
 	}
-	// �ָ��ļ�ָ��λ��
-	if (filePos != NULL && *filePos > 0)
-	{
-		fseek(file, *filePos, SEEK_SET);
-	}
-	//�ҵ��������һ����ָ�룬����׷��
+	//设置文件指针位置
+	fseek(file, *filePos, SEEK_SET);
+	//从输入获取文件内容
 	LineNode* current = head;
+	//找到链表尾，往后添加
 	if (current != NULL)
 	{
 		while (current->next != NULL)
@@ -90,14 +87,13 @@ LineNode* readFileToLine(const char* infile, LineNode* head, int* position, int*
 			current = current->next;
 		}
 	}
-	char buffer[MAXSIZE];
+	char buffer[MAXSIZE]={0};
 	while (*position < (ACTIVEMAXLEN - 20) && fgets(buffer, MAXSIZE, file) != NULL)
 	{
 		LineNode* newline = createLineNode();
 		newline->content = _strdup(buffer);
 		newline->LineNumber = (*lineNum)++;
-
-		if (head == NULL)
+		if (current == NULL)
 		{
 			head = newline;
 			current = head;
@@ -109,12 +105,12 @@ LineNode* readFileToLine(const char* infile, LineNode* head, int* position, int*
 		}
 		(*position)++;
 	}
-	//����Ƿ񵽴��ļ�ĩβ
+	//判断是否到达文件末尾
 	if (feof(file))
 	{
 		*isEndOfFile = 1;
 	}
-	//��¼�ļ�ָ��λ��
+	//获取文件指针位置
 	if (filePos != NULL)
 	{
 		*filePos = ftell(file);
@@ -124,7 +120,7 @@ LineNode* readFileToLine(const char* infile, LineNode* head, int* position, int*
 	return head;
 }
 
-//ÿ�β������һ��
+//输出行
 void outPutLine(const char* outfile, char* content)
 {
 	FILE* file = fopen(outfile, "a+");
@@ -132,7 +128,7 @@ void outPutLine(const char* outfile, char* content)
 	fclose(file);
 }
 
-//����к��Ƿ��ڻ���
+//检查行号是否在规定范围
 int checkLineOut(LineNode* head, int* lineNum, int line)
 {
 	if (line<head->LineNumber - 1 || line>*lineNum)
@@ -143,7 +139,7 @@ int checkLineOut(LineNode* head, int* lineNum, int line)
 	return 0;
 }
 
-//���delete�������Ƿ���ȷ
+//检查删除行号是否在规定范围
 int checkDeleteLineOut(LineNode* head, int* lineNum, int line)
 {
 	if (line<head->LineNumber || line>*lineNum)
@@ -153,25 +149,12 @@ int checkDeleteLineOut(LineNode* head, int* lineNum, int line)
 	return 0;
 }
 
-//������
+//插入行
 LineNode* insertLine(LineNode* head, int* position, const char* outfile, int line, int* lineNum, char content[])
 {
-	//���������Ӧ��ֱ��������������ӵ�ͷָ��֮ǰ������ʹ��p��ʾʱ��֤���
-	//�������֮ǰ
-	/*if (head->LineNumber == line + 1)
-	{
-		outPutLine(outfile, content);
-		LineNode* current = head;
-		while (current != NULL)
-		{
-			current->LineNumber++;
-			current = current->next;
-		}
-	}*/
-	//�����������
 	if (*position + 1 > ACTIVEMAXLEN)
 	{
-		//���뵽����ǰһ�У�ֱ�����
+		//活区已满，直接输出
 		if (head->LineNumber == line + 1)
 		{
 			outPutLine(outfile, content);
@@ -207,7 +190,7 @@ LineNode* insertLine(LineNode* head, int* position, const char* outfile, int lin
 			}
 		}
 	}
-	//��������δ��
+	//活区未满
 	else
 	{
 		if (head->LineNumber == line + 1)
@@ -249,7 +232,7 @@ LineNode* insertLine(LineNode* head, int* position, const char* outfile, int lin
 LineNode* deleteLines(LineNode* head, int line1, int line2, int* position, int* lineNum)
 {
 	clearConsole();
-	//����ѭ��ɾ������Ϊ��ÿ�θı��к�
+	//直接删除会忽略行号改变
 	/*for (int i = line1; i <= line2; i++)
 	{
 		head = deleteLine(head, i);
@@ -264,14 +247,14 @@ LineNode* deleteLines(LineNode* head, int line1, int line2, int* position, int* 
 		printf("Check your input\n");
 		return head;
 	}
-	//ɾ��ͷ���
+	//要删除的行包括头，从头释放
 	while (head != NULL && head->LineNumber >= line1 && head->LineNumber <= line2)
 	{
 		LineNode* next = head->next;
 		freeLineNode(head);
 		head = next;
 	}
-	//�������
+	//删除行
 	LineNode* current = head;
 	while (current != NULL && current->next != NULL)
 	{
@@ -284,7 +267,7 @@ LineNode* deleteLines(LineNode* head, int line1, int line2, int* position, int* 
 			current = current->next;
 		}
 	}
-	//����ʣ��ڵ���к�
+	//行号改变
 	current = head;
 	while (current != NULL)
 	{
@@ -307,7 +290,7 @@ LineNode* deleteLine(LineNode* head, int line1, int* position, int* lineNum)
 	{
 		return NULL;
 	}
-	//ɾ��ͷ���
+	//删除头
 	if (head->LineNumber == line1)
 	{
 		LineNode* next = head->next;
@@ -320,7 +303,7 @@ LineNode* deleteLine(LineNode* head, int line1, int* position, int* lineNum)
 		}
 		return next;
 	}
-	//�������
+	//其他
 	LineNode* current = head;
 	while (current->next != NULL && current->next->LineNumber != line1)
 	{
@@ -341,7 +324,7 @@ LineNode* deleteLine(LineNode* head, int line1, int* position, int* lineNum)
 	return head;
 }
 
-//�����л�
+//活区切换
 LineNode* switchActiveZone(const char* outfile, LineNode* head, int* position,int isEndOfFile)
 {
 	if (outfile == NULL)
@@ -357,11 +340,19 @@ LineNode* switchActiveZone(const char* outfile, LineNode* head, int* position,in
 		return head;
 	}
 	LineNode* current = head;
-	LineNode* next = NULL;
 	int count = 0;
-
-	//�������������������
-	while (current != NULL && (isEndOfFile || (current->LineNumber - head->LineNumber) < (*position - 5)))	//current������ͷ��������
+	//从活区写入文件
+	while (current != NULL && (isEndOfFile || (current->LineNumber - head->LineNumber) < (*position - 5)))	//current没有结束时留5行在活区
+	{
+		fprintf(file, "%s", current->content);
+		current = current->next;
+		/*没有释放内存*/
+		count++;
+	}
+	(*position) -= count;
+	/*原版
+	LineNode* next = NULL;
+	while (current != NULL && (isEndOfFile || (current->LineNumber - head->LineNumber) < (*position - 5)))
 	{
 		fprintf(file, "%s", current->content);
 		next = current->next;
@@ -369,11 +360,11 @@ LineNode* switchActiveZone(const char* outfile, LineNode* head, int* position,in
 		count++;
 		current = next;
 	}
-	*position -= count;
+	*position -= count;*/
 	clearConsole();
 	if (current == NULL)
 	{
-		printf("All content has been successfully written into the output file.\n\n");
+		printf("All content has successfully written into the output file.\n\n");
 		#ifdef _WIN32
 		Sleep(2000);
 		#else
@@ -386,10 +377,10 @@ LineNode* switchActiveZone(const char* outfile, LineNode* head, int* position,in
 		printf("Active zone has successfully written into the output file");
 	}
 	fclose(file);
-	return current;	//�����µ�����ͷ���
+	return current;	//返回剩余链表
 }
 
-//�����м����һ��
+//添加行结点
 void addLineNode(LineNode* head, LineNode* nextLine)
 {
 	if (head->next == NULL)
@@ -403,7 +394,7 @@ void addLineNode(LineNode* head, LineNode* nextLine)
 	}
 }
 
-//ɾ�����������һ�����
+//删除行结点
 void deleteLineNode(LineNode* head)
 {
 	if (head == NULL || head->next == NULL)
@@ -415,30 +406,7 @@ void deleteLineNode(LineNode* head)
 	freeLineNode(delete);
 }
 
-/*ָ���ֵ��ָ�����ڵ��ڴ��ַ
-ָ��ĵ�ַ��ָ������ĵ�ַ��һ������ֵ
-˫��ָ�룺ָ��ָ���ַ��ָ�룬ָ�����һ����������������ͨ����ӷ������޸�ָ���ֵ�����޸�ָ����ָ����ڴ��ַ��
-
-#include <stdio.h>
-void updatePointer(int** ptr) {
-	static int value = 10;
-	*ptr = &value; // �޸�ԭʼָ���ֵ��ʹ��ָ���µĵ�ַ
-}
-int main() {
-	int* p = NULL;
-	printf("Before: %p\n", (void*)p);
-	updatePointer(&p); // ����ָ��ĵ�ַ
-	printf("After: %p, Value: %d\n", (void*)p, *p);
-	return 0;
-}
-
-�����ʾ���У�
-	p ��һ��ָ�� int ��ָ�룬��ʼֵΪ NULL��
-	updatePointer ��������һ��˫��ָ�� int** ptr����ͨ�����޸�ԭʼָ�� p ��ֵ��ʹ��ָ���µĵ�ַ��
-	�� main �����У����� updatePointer ���������� p �ĵ�ַ���� &p�����Ӷ��޸� p ��ֵ��
-*/
-
-//ÿ����ʾ20��
+//显示行
 void showLine(LineNode** page)
 {
 	clearConsole();
@@ -462,7 +430,7 @@ void showLine(LineNode** page)
 	}
 }
 
-//����ն���ʾ
+//清除终端
 void clearConsole()
 {
 	//for windows
@@ -471,7 +439,7 @@ void clearConsole()
 	//system("clear");
 }
 
-//�ͷ��ڴ�
+//释放行结点
 void freeLineNode(LineNode* node)
 {
 	if (node != NULL)
