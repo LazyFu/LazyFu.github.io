@@ -38,7 +38,7 @@ void InsertHufNode(PriorityQueue **head, HufTree tree)
     node->tree=tree;
     node->next=NULL;
     //权重小的在队前
-    if(*head==NULL||(*head)->tree->weight>tree->weight)
+    if(*head==NULL||(*head)->tree->weight > tree->weight)
     {
         node->next=*head;
         *head=node;
@@ -46,7 +46,7 @@ void InsertHufNode(PriorityQueue **head, HufTree tree)
     else
     {
         PriorityQueue *current=*head;
-        while(current->next!=NULL&&current->next->tree->weight<=tree->weight)
+        while(current->next!=NULL&&current->next->tree->weight <= tree->weight)
         {
             current=current->next;
         }
@@ -58,10 +58,6 @@ void InsertHufNode(PriorityQueue **head, HufTree tree)
 //最小的先出队，返回哈夫曼树叶子节点
 HufTree PriorityQueueOut(PriorityQueue **head)
 {
-    if(*head==NULL)
-    {
-        return NULL;
-    }
     PriorityQueue *node=*head;
     *head=(*head)->next;
     HufTree tree=node->tree;
@@ -76,13 +72,13 @@ HufTree CreateHuffmanTree()
     char data;
     int weight;
     printf("输入字符个数：");
-    scanf_s("%d",&n);
+    scanf("%d",&n);
     printf("输入每个字符的数据和权重，一行一个字符和权重：\n");
     //所有数据插入优先队列
     PriorityQueue *PriorityQueue=NULL;
     for (int i = 0; i < n; i++)
     {
-        scanf_s("%c %d\n",&data,&weight);
+        scanf(" %c %d",&data,&weight);
         HufTree node=CreateNode(data,weight);
         InsertHufNode(&PriorityQueue,node);
     }
@@ -112,13 +108,12 @@ void SaveHufTree(HufTree T,FILE *file)
         SaveHufTree(T->left,file);
         SaveHufTree(T->right,file);
     }
-    fclose(file);
 }
 
 //从文件中导入哈夫曼树
 HufTree LoadHufTree()
 {
-    FILE *file=fopen("hfmtree","r");
+    FILE *file=fopen("hfmtree.txt","r");
     if(file==NULL)
     {
         perror("无法打开文件hfmtree\n");
@@ -127,7 +122,7 @@ HufTree LoadHufTree()
     char data;
     int weight;
     PriorityQueue *PriorityQueue=NULL;
-    while(fscanf_s(file,"%c %d\n",&data,&weight)!=EOF)
+    while(fscanf(file,"%c %d\n",&data,&weight)!=EOF)
     {
         HufTree node=CreateNode(data,weight);
         InsertHufNode(&PriorityQueue,node);
@@ -148,68 +143,99 @@ HufTree LoadHufTree()
     return PriorityQueueOut(&PriorityQueue);
 }
 
+// 构建编码表
+void buildCodeTable(HufTree T, char **codeTable, char *code, int depth) 
+{
+    if (T->left == NULL && T->right == NULL) 
+    {
+        code[depth] = '\0';
+        codeTable[(unsigned char)T->data] = strdup(code);
+        return;
+    }
+    if (T->left != NULL) 
+    {
+        code[depth] = '0';
+        buildCodeTable(T->left, codeTable, code, depth + 1);
+    }
+    if (T->right != NULL) 
+    {
+        code[depth] = '1';
+        buildCodeTable(T->right, codeTable, code, depth + 1);
+    }
+}
+
+// 释放编码表
+void freeCodeTable(char **codeTable) 
+{
+    for (int i = 0; i < 256; i++) 
+    {
+        if (codeTable[i] != NULL) 
+        {
+            free(codeTable[i]);
+        }
+    }
+}
+
 //编码
 void Encode(HufTree T)
 {
-    FILE *file=fopen("ToBeTran","r");
+    FILE *file=fopen("ToBeTran.txt","r");
     if(file==NULL)
     {
         perror("无法打开文件ToBeTran\n");
         return;
     }
-    FILE *out=fopen("CodeFile","w");
+    FILE *out=fopen("CodeFile.txt","w");
     if(out==NULL)
     {
         perror("无法创建文件CodeFile\n");
         return;
     }
+    // 构建编码表
+    char *codeTable[256] = {0};
+    char code[256];
+    buildCodeTable(T, codeTable, code, 0);
+    // 读取文件并编码
     char data;
-    while(fscanf_s(file,"%c",&data)!=EOF)
+    while (fscanf(file, "%c", &data) != EOF) 
     {
-        HufTree current=T;
-        while(current->data=='\0')
+        if (codeTable[(unsigned char)data] != NULL) 
         {
-            if(current->left->data==data)
-            {
-                fprintf(out,"0");
-                current=current->left;
-            }
-            else if(current->right->data==data)
-            {
-                fprintf(out,"1");
-                current=current->right;
-            }
+            fprintf(out, "%s", codeTable[(unsigned char)data]);
         }
     }
     printf("编码完成\n");
     fclose(file);
+    fclose(out);
+    // 释放编码表
+    freeCodeTable(codeTable);
 }
 
 //译码
 void Decode(HufTree T)
 {
-    FILE *file=fopen("CodeFile","r");
+    FILE *file=fopen("CodeFile.txt","r");
     if(file==NULL)
     {
         perror("无法打开文件CodeFile\n");
         perror("检查是否已经编码\n");
         return;
     }
-    FILE *out=fopen("TextFile","w");
+    FILE *out=fopen("TextFile.txt","w");
     if(out==NULL)
     {
         perror("无法创建文件TextFile\n");
         return;
     }
-    int bit;
+    char bit;
     HufTree current=T;
-    while(fscanf_s(file,"%d",&bit)!=EOF)
+    while(fscanf(file,"%c",&bit)!=EOF)
     {
-        if(bit==0)
+        if(bit=='0')
         {
             current=current->left;
         }
-        else if(bit==1)
+        else if(bit=='1')
         {
             current=current->right;
         }
@@ -220,31 +246,36 @@ void Decode(HufTree T)
         }
     }
     printf("译码完成\n");
+    fclose(file);
+    fclose(out);
 }
 
 //打印代码文件
 void PrintCode()
 {
-    FILE *file=fopen("CodeFile","r");
+    FILE *file=fopen("CodeFile.txt","r");
     if(file==NULL)
     {
         perror("无法打开文件CodeFile\n");
         return;
     }
-    FILE *out=fopen("CodePrint","w");
-    int bit;
+    FILE *out=fopen("CodePrint.txt","w");
+    char bit;
     int count=0;
-    while(fscanf_s(file,"%d",&bit)!=EOF)
+    while(fscanf(file,"%c",&bit)!=EOF)
     {
-        printf("%d",bit);
+        printf("%c",bit);
         count++;
         if(count%50==0)
         {
             printf("\n");
+            fprintf(out,"\n");
         }
-        fprintf(out,"%d",bit);
+        fprintf(out,"%c",bit);
     }
-    printf("CodeFile输出完成，且写入到CodePrint中\n");
+    printf("\nCodeFile输出完成，且写入到CodePrint中\n");
+    fclose(file);
+    fclose(out);
 }
 
 //打印哈夫曼树
@@ -252,15 +283,17 @@ void PrintHufTree(HufTree T,int depth,FILE *file)
 {
     if(T!=NULL)
     {
-        for (int i = 0; i < depth; i++)
+        if(T->data!='\0')
         {
-            printf("\t");
-            fprintf(file,"\t");
+            for (int i = 0; i < depth; i++)
+            {
+                printf("\t");
+                fprintf(file,"\t");
+            }
+            printf("%c %d\n",T->data,T->weight);
+            fprintf(file,"%c %d\n",T->data,T->weight);
         }
-        printf("%c %d",T->data,T->weight);
-        fprintf(file,"%c %d",T->data,T->weight);
         PrintHufTree(T->left,depth+1,file);
         PrintHufTree(T->right,depth+1,file);
     }
-    printf("哈夫曼树已经打印到TreePrint中\n");
 }

@@ -1,6 +1,3 @@
-/**
- *	释放内存作为心理安慰存在
- */
 #include"LineEditor.h"
 #include<stdio.h>
 #include<stdlib.h>

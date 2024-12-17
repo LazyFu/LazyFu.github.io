@@ -28,6 +28,8 @@ HufTree PriorityQueueOut(PriorityQueue **head);
 HufTree CreateHuffmanTree();
 void SaveHufTree(HufTree T,FILE *file);
 HufTree LoadHufTree();
+void buildCodeTable(HufTree T, char **codeTable, char *code, int depth);
+void freeCodeTable(char **codeTable);
 void Encode(HufTree T);
 void Decode(HufTree T);
 void PrintCode();

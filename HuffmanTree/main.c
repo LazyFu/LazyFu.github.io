@@ -10,10 +10,14 @@ int main()
     showhelp();
     while (1)
     {
-        char func[2]={0};
+        char func[10]={0};
         printf("请输入选项：");
-        fgets(func, sizeof(func), stdin);
-        func[1]='\0';
+        /*if(fgets(func,sizeof(func),stdin)!=NULL)
+        {
+            func[strcspn(func,"\n")]='\0';
+            printf("您输入的是：%s\n",func);
+        }*/
+        fgets(func,sizeof(func),stdin);
         switch (func[0])
         {
         case 'Q':
@@ -27,13 +31,14 @@ int main()
         }
         case 'I':
         {
-            FILE *file=fopen("hfmtree","w");
+            FILE *file=fopen("hfmtree.txt","w");
             if(file==NULL)
             {
                 perror("无法创建文件hfmtree\n");
                 return 0;
             }
             T=CreateHuffmanTree();
+            printf("哈夫曼树已创建\n");
             //将哈夫曼树保存到文件hfmtree
             SaveHufTree(T,file);
             printf("哈夫曼树已保存到文件hfmtree\n");
@@ -67,18 +72,20 @@ int main()
                 printf("没有现有哈夫曼树，从文件中导入...\n");
                 T=LoadHufTree();
             }
-            FILE *file=fopen("TreePrint","w");
+            FILE *file=fopen("TreePrint.txt","w");
             if(file==NULL)
             {
                 perror("无法创建文件TreePrint\n");
                 return 0;
             }
-            PrintHufTree(T,0,file);
+            int depth=0;
+            PrintHufTree(T,depth,file);
             fclose(file);
             break;
         }
         default:
         {
+            showhelp();
             break;
         }
         }
