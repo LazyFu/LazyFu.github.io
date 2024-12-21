@@ -3,25 +3,25 @@
 #include <string.h>
 #include <stdlib.h>
 
-//æ˜¾ç¤ºå¸®åŠ©ä¿¡æ¯
+//ÏÔÊ¾°ïÖúĞÅÏ¢
 void showhelp()
 {
-    printf("H:æ˜¾ç¤ºå¸®åŠ©ä¿¡æ¯\n");
-    printf("I:è¾“å…¥å­—ç¬¦ä¸ªæ•°ï¼Œè¾“å…¥å­—ç¬¦æ•°æ®å’Œæƒé‡ï¼Œåˆ›å»ºå“ˆå¤«æ›¼æ ‘\n");
-    printf("E:ç¼–ç \n");
-    printf("D:è¯‘ç \n");
-    printf("P:æ‰“å°ä»£ç æ–‡ä»¶\n");
-    printf("T:æ‰“å°å“ˆå¤«æ›¼æ ‘\n");
-    printf("Q:é€€å‡ºç¨‹åº\n");
+    printf("H:ÏÔÊ¾°ïÖúĞÅÏ¢\n");
+    printf("I:ÊäÈë×Ö·û¸öÊı£¬ÊäÈë×Ö·ûÊı¾İºÍÈ¨ÖØ£¬´´½¨¹ş·òÂüÊ÷\n");
+    printf("E:±àÂë\n");
+    printf("D:ÒëÂë\n");
+    printf("P:´òÓ¡´úÂëÎÄ¼ş\n");
+    printf("T:´òÓ¡¹ş·òÂüÊ÷\n");
+    printf("Q:ÍË³ö³ÌĞò\n");
 }
 
-//åˆ›å»ºå“ˆå¤«æ›¼æ ‘ç»“ç‚¹
+//´´½¨¹ş·òÂüÊ÷½áµã
 HufTree CreateNode(char data, int weight)
 {
     HufTree node=(HufTree)malloc(sizeof(HufNode));
     if(node==NULL)
     {
-        perror("å†…å­˜åˆ†é…å¤±è´¥\n");
+        perror("ÄÚ´æ·ÖÅäÊ§°Ü\n");
         return NULL;
     }
     node->data=data;
@@ -31,13 +31,13 @@ HufTree CreateNode(char data, int weight)
     return node;
 }
 
-//æ’å…¥å“ˆå¤«æ›¼æ ‘ç»“ç‚¹åˆ°ä¼˜å…ˆé˜Ÿåˆ—
+//²åÈë¹ş·òÂüÊ÷½áµãµ½ÓÅÏÈ¶ÓÁĞ
 void InsertHufNode(PriorityQueue **head, HufTree tree)
 {
     PriorityQueue *node=(PriorityQueue *)malloc(sizeof(PriorityQueue));
     node->tree=tree;
     node->next=NULL;
-    //æƒé‡å°çš„åœ¨é˜Ÿå‰
+    //È¨ÖØĞ¡µÄÔÚ¶ÓÇ°
     if(*head==NULL||(*head)->tree->weight > tree->weight)
     {
         node->next=*head;
@@ -55,7 +55,7 @@ void InsertHufNode(PriorityQueue **head, HufTree tree)
     }
 }
 
-//æœ€å°çš„å…ˆå‡ºé˜Ÿï¼Œè¿”å›å“ˆå¤«æ›¼æ ‘å¶å­èŠ‚ç‚¹
+//×îĞ¡µÄÏÈ³ö¶Ó£¬·µ»Ø¹ş·òÂüÊ÷Ò¶×Ó½Úµã
 HufTree PriorityQueueOut(PriorityQueue **head)
 {
     PriorityQueue *node=*head;
@@ -65,16 +65,16 @@ HufTree PriorityQueueOut(PriorityQueue **head)
     return tree;
 }
 
-//åˆ›å»ºå“ˆå¤«æ›¼æ ‘
+//´´½¨¹ş·òÂüÊ÷
 HufTree CreateHuffmanTree()
 {
     int n;
     char data;
     int weight;
-    printf("è¾“å…¥å­—ç¬¦ä¸ªæ•°ï¼š");
+    printf("ÊäÈë×Ö·û¸öÊı£º");
     scanf("%d",&n);
-    printf("è¾“å…¥æ¯ä¸ªå­—ç¬¦çš„æ•°æ®å’Œæƒé‡ï¼Œä¸€è¡Œä¸€ä¸ªå­—ç¬¦å’Œæƒé‡ï¼š\n");
-    //æ‰€æœ‰æ•°æ®æ’å…¥ä¼˜å…ˆé˜Ÿåˆ—
+    printf("ÊäÈëÃ¿¸ö×Ö·ûµÄÊı¾İºÍÈ¨ÖØ£¬Ò»ĞĞÒ»¸ö×Ö·ûºÍÈ¨ÖØ£º\n");
+    //ËùÓĞÊı¾İ²åÈëÓÅÏÈ¶ÓÁĞ
     PriorityQueue *PriorityQueue=NULL;
     for (int i = 0; i < n; i++)
     {
@@ -82,7 +82,7 @@ HufTree CreateHuffmanTree()
         HufTree node=CreateNode(data,weight);
         InsertHufNode(&PriorityQueue,node);
     }
-    //æ„å»ºå“ˆå¤«æ›¼æ ‘
+    //¹¹½¨¹ş·òÂüÊ÷
     while(PriorityQueue!=NULL&&PriorityQueue->next!=NULL)
     {
         HufTree left=PriorityQueueOut(&PriorityQueue);
@@ -90,13 +90,13 @@ HufTree CreateHuffmanTree()
         HufTree parent=CreateNode('\0',left->weight+right->weight);
         parent->left=left;
         parent->right=right;
-        //ä¸¤æœ€å°çš„èŠ‚ç‚¹åˆå¹¶åæ’å…¥ä¼˜å…ˆé˜Ÿåˆ—
+        //Á½×îĞ¡µÄ½ÚµãºÏ²¢ºó²åÈëÓÅÏÈ¶ÓÁĞ
         InsertHufNode(&PriorityQueue,parent);
     }
     return PriorityQueueOut(&PriorityQueue);
 }
 
-//ä¿å­˜å“ˆå¤«æ›¼æ ‘åˆ°æ–‡ä»¶
+//±£´æ¹ş·òÂüÊ÷µ½ÎÄ¼ş
 void SaveHufTree(HufTree T,FILE *file)
 {
     if(T!=NULL)
@@ -110,13 +110,13 @@ void SaveHufTree(HufTree T,FILE *file)
     }
 }
 
-//ä»æ–‡ä»¶ä¸­å¯¼å…¥å“ˆå¤«æ›¼æ ‘
+//´ÓÎÄ¼şÖĞµ¼Èë¹ş·òÂüÊ÷
 HufTree LoadHufTree()
 {
     FILE *file=fopen("hfmtree.txt","r");
     if(file==NULL)
     {
-        perror("æ— æ³•æ‰“å¼€æ–‡ä»¶hfmtree\n");
+        perror("ÎŞ·¨´ò¿ªÎÄ¼şhfmtree\n");
         return NULL;
     }
     char data;
@@ -127,7 +127,7 @@ HufTree LoadHufTree()
         HufTree node=CreateNode(data,weight);
         InsertHufNode(&PriorityQueue,node);
     }
-    //æ„å»ºå“ˆå¤«æ›¼æ ‘
+    //¹¹½¨¹ş·òÂüÊ÷
     while(PriorityQueue!=NULL&&PriorityQueue->next!=NULL)
     {
         HufTree left=PriorityQueueOut(&PriorityQueue);
@@ -135,15 +135,15 @@ HufTree LoadHufTree()
         HufTree parent=CreateNode('\0',left->weight+right->weight);
         parent->left=left;
         parent->right=right;
-        //ä¸¤æœ€å°çš„èŠ‚ç‚¹åˆå¹¶åæ’å…¥ä¼˜å…ˆé˜Ÿåˆ—
+        //Á½×îĞ¡µÄ½ÚµãºÏ²¢ºó²åÈëÓÅÏÈ¶ÓÁĞ
         InsertHufNode(&PriorityQueue,parent);
     }
-    printf("å¯¼å…¥å“ˆå¤«æ›¼æ ‘å®Œæˆ\n");
+    printf("µ¼Èë¹ş·òÂüÊ÷Íê³É\n");
     fclose(file);
     return PriorityQueueOut(&PriorityQueue);
 }
 
-// æ„å»ºç¼–ç è¡¨
+// ¹¹½¨±àÂë±í
 void buildCodeTable(HufTree T, char **codeTable, char *code, int depth) 
 {
     if (T->left == NULL && T->right == NULL) 
@@ -164,7 +164,7 @@ void buildCodeTable(HufTree T, char **codeTable, char *code, int depth)
     }
 }
 
-// é‡Šæ”¾ç¼–ç è¡¨
+// ÊÍ·Å±àÂë±í
 void freeCodeTable(char **codeTable) 
 {
     for (int i = 0; i < 256; i++) 
@@ -176,26 +176,26 @@ void freeCodeTable(char **codeTable)
     }
 }
 
-//ç¼–ç 
+//±àÂë
 void Encode(HufTree T)
 {
     FILE *file=fopen("ToBeTran.txt","r");
     if(file==NULL)
     {
-        perror("æ— æ³•æ‰“å¼€æ–‡ä»¶ToBeTran\n");
+        perror("ÎŞ·¨´ò¿ªÎÄ¼şToBeTran\n");
         return;
     }
     FILE *out=fopen("CodeFile.txt","w");
     if(out==NULL)
     {
-        perror("æ— æ³•åˆ›å»ºæ–‡ä»¶CodeFile\n");
+        perror("ÎŞ·¨´´½¨ÎÄ¼şCodeFile\n");
         return;
     }
-    // æ„å»ºç¼–ç è¡¨
+    // ¹¹½¨±àÂë±í
     char *codeTable[256] = {0};
     char code[256];
     buildCodeTable(T, codeTable, code, 0);
-    // è¯»å–æ–‡ä»¶å¹¶ç¼–ç 
+    // ¶ÁÈ¡ÎÄ¼ş²¢±àÂë
     char data;
     while (fscanf(file, "%c", &data) != EOF) 
     {
@@ -204,27 +204,27 @@ void Encode(HufTree T)
             fprintf(out, "%s", codeTable[(unsigned char)data]);
         }
     }
-    printf("ç¼–ç å®Œæˆ\n");
+    printf("±àÂëÍê³É\n");
     fclose(file);
     fclose(out);
-    // é‡Šæ”¾ç¼–ç è¡¨
+    // ÊÍ·Å±àÂë±í
     freeCodeTable(codeTable);
 }
 
-//è¯‘ç 
+//ÒëÂë
 void Decode(HufTree T)
 {
     FILE *file=fopen("CodeFile.txt","r");
     if(file==NULL)
     {
-        perror("æ— æ³•æ‰“å¼€æ–‡ä»¶CodeFile\n");
-        perror("æ£€æŸ¥æ˜¯å¦å·²ç»ç¼–ç \n");
+        perror("ÎŞ·¨´ò¿ªÎÄ¼şCodeFile\n");
+        perror("¼ì²éÊÇ·ñÒÑ¾­±àÂë\n");
         return;
     }
     FILE *out=fopen("TextFile.txt","w");
     if(out==NULL)
     {
-        perror("æ— æ³•åˆ›å»ºæ–‡ä»¶TextFile\n");
+        perror("ÎŞ·¨´´½¨ÎÄ¼şTextFile\n");
         return;
     }
     char bit;
@@ -245,18 +245,18 @@ void Decode(HufTree T)
             current=T;
         }
     }
-    printf("è¯‘ç å®Œæˆ\n");
+    printf("ÒëÂëÍê³É\n");
     fclose(file);
     fclose(out);
 }
 
-//æ‰“å°ä»£ç æ–‡ä»¶
+//´òÓ¡´úÂëÎÄ¼ş
 void PrintCode()
 {
     FILE *file=fopen("CodeFile.txt","r");
     if(file==NULL)
     {
-        perror("æ— æ³•æ‰“å¼€æ–‡ä»¶CodeFile\n");
+        perror("ÎŞ·¨´ò¿ªÎÄ¼şCodeFile\n");
         return;
     }
     FILE *out=fopen("CodePrint.txt","w");
@@ -273,12 +273,12 @@ void PrintCode()
         }
         fprintf(out,"%c",bit);
     }
-    printf("\nCodeFileè¾“å‡ºå®Œæˆï¼Œä¸”å†™å…¥åˆ°CodePrintä¸­\n");
+    printf("\nCodeFileÊä³öÍê³É£¬ÇÒĞ´Èëµ½CodePrintÖĞ\n");
     fclose(file);
     fclose(out);
 }
 
-//æ‰“å°å“ˆå¤«æ›¼æ ‘
+//´òÓ¡¹ş·òÂüÊ÷
 void PrintHufTree(HufTree T,int depth,FILE *file)
 {
     if(T!=NULL)

@@ -6,16 +6,16 @@
 int main()
 {
     HufTree T=NULL;
-    printf("å“ˆå¤«æ›¼ç¼–ç è¯‘ç å™¨--------\n");
+    printf("¹ş·òÂü±àÂëÒëÂëÆ÷--------\n");
     showhelp();
     while (1)
     {
         char func[10]={0};
-        printf("è¯·è¾“å…¥é€‰é¡¹ï¼š");
+        printf("ÇëÊäÈëÑ¡Ïî£º");
         /*if(fgets(func,sizeof(func),stdin)!=NULL)
         {
             func[strcspn(func,"\n")]='\0';
-            printf("æ‚¨è¾“å…¥çš„æ˜¯ï¼š%s\n",func);
+            printf("ÄúÊäÈëµÄÊÇ£º%s\n",func);
         }*/
         fgets(func,sizeof(func),stdin);
         switch (func[0])
@@ -34,14 +34,14 @@ int main()
             FILE *file=fopen("hfmtree.txt","w");
             if(file==NULL)
             {
-                perror("æ— æ³•åˆ›å»ºæ–‡ä»¶hfmtree\n");
+                perror("ÎŞ·¨´´½¨ÎÄ¼şhfmtree\n");
                 return 0;
             }
             T=CreateHuffmanTree();
-            printf("å“ˆå¤«æ›¼æ ‘å·²åˆ›å»º\n");
-            //å°†å“ˆå¤«æ›¼æ ‘ä¿å­˜åˆ°æ–‡ä»¶hfmtree
+            printf("¹ş·òÂüÊ÷ÒÑ´´½¨\n");
+            //½«¹ş·òÂüÊ÷±£´æµ½ÎÄ¼şhfmtree
             SaveHufTree(T,file);
-            printf("å“ˆå¤«æ›¼æ ‘å·²ä¿å­˜åˆ°æ–‡ä»¶hfmtree\n");
+            printf("¹ş·òÂüÊ÷ÒÑ±£´æµ½ÎÄ¼şhfmtree\n");
             fclose(file);
             break;
         }
@@ -49,7 +49,7 @@ int main()
         {
             if(T==NULL)
             {
-                printf("æ²¡æœ‰ç°æœ‰å“ˆå¤«æ›¼æ ‘ï¼Œä»æ–‡ä»¶ä¸­å¯¼å…¥...\n");
+                printf("Ã»ÓĞÏÖÓĞ¹ş·òÂüÊ÷£¬´ÓÎÄ¼şÖĞµ¼Èë...\n");
                 T=LoadHufTree();
             }
             Encode(T);
@@ -69,13 +69,13 @@ int main()
         {
             if(T==NULL)
             {
-                printf("æ²¡æœ‰ç°æœ‰å“ˆå¤«æ›¼æ ‘ï¼Œä»æ–‡ä»¶ä¸­å¯¼å…¥...\n");
+                printf("Ã»ÓĞÏÖÓĞ¹ş·òÂüÊ÷£¬´ÓÎÄ¼şÖĞµ¼Èë...\n");
                 T=LoadHufTree();
             }
             FILE *file=fopen("TreePrint.txt","w");
             if(file==NULL)
             {
-                perror("æ— æ³•åˆ›å»ºæ–‡ä»¶TreePrint\n");
+                perror("ÎŞ·¨´´½¨ÎÄ¼şTreePrint\n");
                 return 0;
             }
             int depth=0;

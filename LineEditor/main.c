@@ -5,16 +5,16 @@
 
 int main()
 {
-	//è·å–è¾“å…¥è¾“å‡ºæ–‡ä»¶å
+	//»ñÈ¡ÊäÈëÊä³öÎÄ¼şÃû
 	char inputfile[256], outputfile[256];
 	getInOutFile(inputfile, outputfile, sizeof(inputfile));
 
-	//å®šä¹‰åŸºæœ¬å˜é‡
-	int lineNum = 1;	//è¡Œå·
-	int position = 0;	//æ´»åŒºè¡Œæ•°
-	long filePos = 0;	//æ–‡ä»¶æŒ‡é’ˆä½ç½®
-	int isEndOfFile = 0;//æ˜¯å¦åˆ°è¾¾æ–‡ä»¶æœ«å°¾
-	//è¯»å–æ–‡ä»¶åˆ°é“¾è¡¨
+	//¶¨Òå»ù±¾±äÁ¿
+	int lineNum = 1;	//ĞĞºÅ
+	int position = 0;	//»îÇøĞĞÊı
+	long filePos = 0;	//ÎÄ¼şÖ¸ÕëÎ»ÖÃ
+	int isEndOfFile = 0;//ÊÇ·ñµ½´ïÎÄ¼şÄ©Î²
+	//¶ÁÈ¡ÎÄ¼şµ½Á´±í
 	LineNode* head = NULL;
 	head = readFileToLine(inputfile, head, &position, &lineNum, &filePos, &isEndOfFile);
 
@@ -23,15 +23,15 @@ int main()
 	displayHelp();
 	while (1)
 	{
-		char command[20] = { 0 };	//éšä¾¿åŠ å…¥å‘½ä»¤æœ€å¤š20ä¸ªå­—ç¬¦
+		char command[20] = { 0 };	//Ëæ±ã¼ÓÈëÃüÁî×î¶à20¸ö×Ö·û
 		printf("Enter command: \n");
 		fgets(command, sizeof(command), stdin);
 
-		//å¤„ç†å‘½ä»¤
+		//´¦ÀíÃüÁî
 		int line = 0, line1 = 0, line2 = 0;
 		switch (command[0])
 		{
-		//è¡Œæ’å…¥
+		//ĞĞ²åÈë
 		case 'i':
 		{
 			char content[MAXSIZE] = { 0 };
@@ -44,7 +44,7 @@ int main()
 			}
 			break;
 		}
-		//è¡Œåˆ é™¤
+		//ĞĞÉ¾³ı
 		case 'd':
 		{
 			if (sscanf_s(command, "d%d %d", &line1, &line2) == 2 && !checkDeleteLineOut(head, &lineNum, line1) && !checkDeleteLineOut(head, &lineNum, line2))
@@ -62,7 +62,7 @@ int main()
 			page = head;
 			break;
 		}
-		//æ´»åŒºåˆ‡æ¢
+		//»îÇøÇĞ»»
 		case 'n':
 		{
 			head = switchActiveZone(outputfile, head, &position, isEndOfFile);
@@ -70,13 +70,13 @@ int main()
 			page = head;
 			break;
 		}
-		//æ¢é¡µ
+		//»»Ò³
 		case 'p':
 		{
 			showLine(&page);
 			break;
 		}
-		//æ˜¾ç¤ºå¸®åŠ©
+		//ÏÔÊ¾°ïÖú
 		case '?':
 		{
 			displayHelp();
