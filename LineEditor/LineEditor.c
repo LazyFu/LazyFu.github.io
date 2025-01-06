@@ -229,6 +229,7 @@ LineNode* insertLine(LineNode* head, int* position, const char* outfile, int lin
 	return head;
 }
 
+//删除多行
 LineNode* deleteLines(LineNode* head, int line1, int line2, int* position, int* lineNum)
 {
 	clearConsole();
@@ -283,6 +284,7 @@ LineNode* deleteLines(LineNode* head, int line1, int line2, int* position, int* 
 	return head;
 }
 
+//删除一行
 LineNode* deleteLine(LineNode* head, int line1, int* position, int* lineNum)
 {
 	clearConsole();
