@@ -11,14 +11,14 @@
 #include<stdlib.h>
 #include<string.h>
 
-#define ACTIVEMAXLEN 100	//»îÇø×î´ó³¤¶È
-#define MAXSIZE 320			//Ã¿ĞĞ×î´ó³¤¶È
+#define ACTIVEMAXLEN 100	//æ´»åŒºæœ€å¤§é•¿åº¦
+#define MAXSIZE 320			//æ¯è¡Œæœ€å¤§é•¿åº¦
 
-//¶¨ÒåĞĞ½áµã½á¹¹Ìå
+//å®šä¹‰è¡Œç»“ç‚¹ç»“æ„ä½“
 typedef struct LineNode
 {
-	int LineNumber;		//ĞĞºÅ
-	char* content;		//Ã¿ĞĞÄÚÈİ
+	int LineNumber;		//è¡Œå·
+	char* content;		//æ¯è¡Œå†…å®¹
 	struct LineNode* next;
 }LineNode;
 

@@ -5,19 +5,19 @@
 #include<string.h>
 #include<stdlib.h>
 
-//定义哈夫曼树结点
+//瀹氫箟鍝堝か鏇兼爲缁撶偣
 typedef struct HuffmanNode
 {
-    char data;  //存储数据
-    int weight; //存储权重
+    char data;  //瀛樺偍鏁版嵁
+    int weight; //瀛樺偍鏉冮噸
     struct HuffmanNode* left;
     struct HuffmanNode* right;
 }HufNode, * HufTree;
 
-//定义优先队列
+//瀹氫箟浼樺厛闃熷垪
 typedef struct PriorityQueue
 {
-    HufTree tree;   //存储哈夫曼树结点
+    HufTree tree;   //瀛樺偍鍝堝か鏇兼爲缁撶偣
     struct PriorityQueue* next;
 }PriorityQueue;
 
