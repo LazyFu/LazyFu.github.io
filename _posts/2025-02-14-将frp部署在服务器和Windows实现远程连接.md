@@ -123,6 +123,12 @@ frpc.exe -c frpc.toml
 sc create frpc binPath= "C:\Users\xx\frp" start= auto
 ```
 
+可能会遇到问题，暂时不知道解决办法，可以在cmd中frp文件夹手动启动
+
+```cmd
+frpc.exe -c frpc.toml
+```
+
 ## 继续
 
 服务器防火墙要开启配置文件中指定端口，如6000和7000
@@ -133,3 +139,5 @@ sudo iptables -A INPUT -p tcp --dport 6000 -j ACCEPT
 ```
 
 另一个电脑使用windows-app，输入服务器IP和端口如`x.x.x.x:xx`，即可连接
+
+效果不是很理想，延迟很高，很多毛病不太适合频繁操作
