@@ -3,7 +3,7 @@ layout: post
 title:  "将frp部署在服务器和Windows实现远程连接"
 date:   2025-02-14 14:48:32 +0800
 categories: blog update
-tags: 远程连接
+tags: 远程连接 systemd
 ---
 
 ## 服务器端
