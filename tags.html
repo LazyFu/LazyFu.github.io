@@ -1,0 +1,23 @@
+---
+layout: page
+title: 标签
+---
+
+<div class="tag-cloud">
+  {% for tag in site.tags %}
+    <a href="{{ site.baseurl }}/tags/{{ tag[0] | slugify }}" class="tag">
+      {{ tag[0] }} ({{ tag[1].size }})
+    </a>
+  {% endfor %}
+</div>
+
+<div>
+  {% for tag in site.tags %}
+    <h3 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h3>
+    <ul>
+      {% for post in tag[1] %}
+        <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</div>
