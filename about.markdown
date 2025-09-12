@@ -24,6 +24,6 @@ permalink: /about/
 
 略懂c，c++，java，python，go。说不上更喜欢哪个，一天喜欢一个，我花心。
 
-喜欢Linux，喜欢新鲜的，之前觉得Arch好看，现在又觉得Gentoo好看，心形图标真的很绝。
+喜欢Linux，喜欢新鲜的，之前觉得Arch好看，现在又觉得Gentoo好看，心形图标真的很绝。I use Arch, btw.
 
 我虽然也没写什么有用的项目，但是这个[Always on top](https://github.com/LazyFu/AlwaysOnTop)绝对是好用的，都给我用！你们都没有顶置窗口的需求吗！

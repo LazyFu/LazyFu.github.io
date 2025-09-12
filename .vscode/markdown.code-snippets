@@ -1,0 +1,17 @@
+{
+	"Jekyll Post Front Matter": {
+		"prefix": "jekyll-post",
+		"body": [
+			"---",
+			"layout: post",
+			"title:  \"${1:}\"",
+			"date:   ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE} +0800",
+			"categories: blog update",
+			"tag: ${2:}",
+			"---",
+			"",
+			"${0:}"
+		],
+		"description": "post front matter for Jekyll"
+	}
+}
