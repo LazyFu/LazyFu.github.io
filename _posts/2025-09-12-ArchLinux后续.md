@@ -3,7 +3,7 @@ layout: post
 title: "ArchLinux后续"
 date: 2025-09-12 22:12:37 +0800
 categories: blog update
-tags: archlinux
+tags: 操作系统
 ---
 
 ## 连接网络

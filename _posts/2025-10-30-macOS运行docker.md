@@ -3,7 +3,7 @@ layout: post
 title:  "macOS运行docker"
 date:   2025-10-30 12:30 +0800
 categories: blog update
-tag: docker macOS
+tag: 解决方案
 ---
 
 macOS需要借助colima创建VM来运行docker daemon，进而运行docker。

@@ -3,7 +3,7 @@ layout: post
 title: "安装ArchLinux"
 date: 2025-09-10 14:56:00 +0800
 categories: blog update
-tags: archlinux 安装
+tags: 操作系统
 ---
 
 **Gentoo快去死吧。**

@@ -3,7 +3,7 @@ layout: post
 title: "missing-semester-Shell"
 date: 2025-08-17 18:49:47 +0800
 categories: blog update
-tags: shell
+tags: linux
 ---
 
 [特殊的参数](https://missing.csail.mit.edu/2020/shell-tools/)
