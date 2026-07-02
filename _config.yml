@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   My personal blog, where I share my thoughts and experiences.
   Rarely updated, because I am lazy.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://lazyfu.me" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://lazyfu.me" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
 github_username: LazyFu
 
@@ -38,6 +38,7 @@ sass:
   sass_dir: _sass
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 # Exclude from processing.
 # The following items will not be processed, by default.
